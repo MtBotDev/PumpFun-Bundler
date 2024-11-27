@@ -1,111 +1,171 @@
-# PumpFun Bundler README
 
-## Overview
 
-Bundle buy with 16 different wallets in bundle
-## Installation
+# 🚀 **PumpFun Bundler** 🛠️
 
-`
+## 📋 **Overview**
+
+The **PumpFun Bundler** allows you to bundle **buy** operations with **16 different wallets** in one go on the **Solana blockchain**. Efficient, fast, and designed for high-volume transactions, this tool simplifies your trading experience! 🌟
+
+---
+
+## 📥 **Installation**
+
+To get started with the **PumpFun Bundler**, run the following command to install the **PumpDotFun SDK**:
+
+```bash
 npm i pumpdotfun-sdk
-`
+```
 
-## Usage Example
+---
 
-First you need to create a `.env` file and set your RPC URL like in the `.env.example`
+## 🔑 **Setup**
 
-Then you need to fund an account with atleast 0.004 SOL that is generated when running the command below
+1. **Create `.env` file:**  
+   Set your **RPC URL** as per the `.env.example` file. Ensure it's pointing to the correct Solana network.
 
-`
+2. **Fund Your Account:**  
+   Fund an account with at least **0.004 SOL**. This will be automatically generated when you run the command below:
+
+```bash
 npx ts-node example/basic/index.ts
-`
-Example tx link:
-https://explorer.jito.wtf/bundle/96cd7b315354afeed1b2610a709b71657e52f2126122d860d4df8da9f675357d
+```
 
-#### buy
+Once set up, you're ready to start bundling!
+
+---
+
+## 🔄 **Usage Example**
+
+Here's an example of how to use the PumpFun Bundler for buying and selling tokens.
+
+### 🛒 **Buy Tokens**
 
 ```typescript
 async buy(
-  buyers: Keypair[],
-  mint: PublicKey,
-  buyAmountSol: bigint,
-  slippageBasisPoints: bigint = 500n,
-  priorityFees?: PriorityFee,
-  commitment: Commitment = DEFAULT_COMMITMENT,
+  buyers: Keypair[], 
+  mint: PublicKey, 
+  buyAmountSol: bigint, 
+  slippageBasisPoints: bigint = 500n, 
+  priorityFees?: PriorityFee, 
+  commitment: Commitment = DEFAULT_COMMITMENT, 
   finality: Finality = DEFAULT_FINALITY
 ): Promise<TransactionResult>
 ```
 
-- Buys a specified amount of tokens.
-- **Parameters**:
-  - `buyers`: The Array of buyer.
-  - `mint`: The public key of the mint account.
-  - `buyAmountSol`: Amount of SOL to buy.
-  - `slippageBasisPoints`: Slippage in basis points (default: 500).
-  - `priorityFees`: Priority fees (optional).
-  - `commitment`: Commitment level (default: DEFAULT_COMMITMENT).
-  - `finality`: Finality level (default: DEFAULT_FINALITY).
-- **Returns**: A promise that resolves to a `TransactionResult`.
+- **Description:**  
+  Buys a specified amount of tokens from the **mint** using **SOL**.
+  
+- **Parameters:**  
+  - `buyers`: Array of buyer keypairs. 👥
+  - `mint`: The **public key** of the mint account. 🔑
+  - `buyAmountSol`: The amount of **SOL** to use for buying. 💸
+  - `slippageBasisPoints`: Slippage in basis points (default: **500**). ⚖️
+  - `priorityFees`: Optional **priority fees**. 💎
+  - `commitment`: Level of **commitment** (default: **DEFAULT_COMMITMENT**). 🏁
+  - `finality`: Level of **finality** (default: **DEFAULT_FINALITY**). ⏳
+  
+- **Returns:**  
+  A promise that resolves to a `TransactionResult` with the result of the transaction. 📝
 
-#### sell
+---
+
+### 💰 **Sell Tokens**
 
 ```typescript
 async sell(
-  seller: Keypair,
-  mint: PublicKey,
-  sellTokenAmount: bigint,
-  slippageBasisPoints: bigint = 500n,
-  priorityFees?: PriorityFee,
-  commitment: Commitment = DEFAULT_COMMITMENT,
+  seller: Keypair, 
+  mint: PublicKey, 
+  sellTokenAmount: bigint, 
+  slippageBasisPoints: bigint = 500n, 
+  priorityFees?: PriorityFee, 
+  commitment: Commitment = DEFAULT_COMMITMENT, 
   finality: Finality = DEFAULT_FINALITY
 ): Promise<TransactionResult>
 ```
 
-- Sells a specified amount of tokens.
-- **Parameters**:
-  - `seller`: The keypair of the seller.
-  - `mint`: The public key of the mint account.
-  - `sellTokenAmount`: Amount of tokens to sell.
-  - `slippageBasisPoints`: Slippage in basis points (default: 500).
-  - `priorityFees`: Priority fees (optional).
-  - `commitment`: Commitment level (default: DEFAULT_COMMITMENT).
-  - `finality`: Finality level (default: DEFAULT_FINALITY).
-- **Returns**: A promise that resolves to a `TransactionResult`.
+- **Description:**  
+  Sells a specified amount of **tokens** and returns the transaction result.
+  
+- **Parameters:**  
+  - `seller`: The **keypair** of the seller. 🔑
+  - `mint`: The **public key** of the mint account. 🏛️
+  - `sellTokenAmount`: The amount of **tokens** to sell. 💱
+  - `slippageBasisPoints`: Slippage in basis points (default: **500**). ⚖️
+  - `priorityFees`: Optional **priority fees**. 💎
+  - `commitment`: Level of **commitment** (default: **DEFAULT_COMMITMENT**). 🏁
+  - `finality`: Level of **finality** (default: **DEFAULT_FINALITY**). ⏳
 
-#### addEventListener
+- **Returns:**  
+  A promise that resolves to a `TransactionResult` with the result of the sale. 📝
+
+---
+
+### 🎧 **Add Event Listener**
 
 ```typescript
 addEventListener<T extends PumpFunEventType>(
-  eventType: T,
+  eventType: T, 
   callback: (event: PumpFunEventHandlers[T], slot: number, signature: string) => void
 ): number
 ```
 
-- Adds an event listener for the specified event type.
-- **Parameters**:
-  - `eventType`: The type of event to listen for.
-  - `callback`: The callback function to execute when the event occurs.
-- **Returns**: An identifier for the event listener.
+- **Description:**  
+  Adds an event listener for specific **PumpFun events**.
+  
+- **Parameters:**  
+  - `eventType`: The **type of event** to listen for (e.g., mint, sell, etc.). 📡
+  - `callback`: The **callback function** to execute when the event occurs. 🔄
 
-#### removeEventListener
+- **Returns:**  
+  The **event listener identifier**. 🎫
+
+---
+
+### 🚫 **Remove Event Listener**
 
 ```typescript
 removeEventListener(eventId: number): void
 ```
 
-- Removes the event listener with the specified identifier.
-- **Parameters**:
-  - `eventId`: The identifier of the event listener to remove.
+- **Description:**  
+  Removes an **event listener** using its **identifier**.
 
-### Running the Examples
-
-## Contributing
-
-We welcome contributions! Please submit a pull request or open an issue to discuss any changes.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+- **Parameters:**  
+  - `eventId`: The **identifier** of the event listener to remove. 🔑
 
 ---
 
-By following this README, you should be able to install the PumpDotFun SDK, run the provided examples, and understand how to set up event listeners and perform token operations.
+## 🎬 **Running the Examples**
+
+To run the examples:
+
+1. Clone the repository or navigate to the **example directory**.
+2. Execute the **example script** using `npx ts-node example/basic/index.ts`.
+3. Check the **transaction link** in the example output:
+
+[Example Transaction Link](https://explorer.jito.wtf/bundle/96cd7b315354afeed1b2610a709b71657e52f2126122d860d4df8da9f675357d) 🌍
+
+---
+
+## 🤝 **Contributing**
+
+We ❤️ contributions! If you have suggestions or improvements, feel free to:
+
+- Submit a **pull request** 📤
+- Open an **issue** to discuss changes or bugs 🐞
+
+Let's build together! 💪
+
+---
+
+## 📝 **License**
+
+This project is licensed under the **MIT License**. For more details, check the [LICENSE](LICENSE) file.
+
+---
+
+## 📞 **Contact & Support**
+
+For any issues or questions, reach out on:
+
+- **Twitter**: [@g0drlc](https://twitter.com/g0drlc) 🦸‍♂️
